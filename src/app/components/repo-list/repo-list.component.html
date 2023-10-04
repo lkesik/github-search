@@ -1,0 +1,15 @@
+<div class="total-count" *ngIf="totalCount | async as count">
+  {{ count | number }} results
+</div>
+<ul>
+  <li *ngFor="let item of items | async">
+    <app-repo-item
+      [name]="item.full_name"
+      [description]="item.description"
+      [language]="item.language"
+      [tags]="item.topics"
+      [stars]="item.stargazers_count"
+      [lastUpdated]="item.updated_at"
+    />
+  </li>
+</ul>

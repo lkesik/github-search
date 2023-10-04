@@ -1,0 +1,10 @@
+<form (submit)="onSubmitSearch($event)">
+  <input
+    type="text"
+    id="searchTerm"
+    name="searchTerm"
+    [(ngModel)]="searchTerm"
+    placeholder="type repository name here..."
+  />
+  <button type="submit">Search</button>
+</form>

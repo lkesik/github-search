@@ -1,0 +1,49 @@
+@import "../../variables";
+
+.repo-item {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid $color-gray;
+  padding: 16px;
+
+  .title {
+    cursor: pointer;
+    color: $color-blue;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .description {
+    margin-top: 4px;
+    font-size: 14px;
+  }
+
+  .tags {
+    margin-top: 10px;
+    .tag {
+      color: $color-blue;
+      text-decoration: none;
+      font-size: 12px;
+      display: inline-block;
+      padding: 0px 10px;
+      border-radius: 2em;
+      line-height: 22px;
+      background-color: $color-lightblue;
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+  }
+
+  .bottom {
+    margin-top: 10px;
+    font-size: 12px;
+
+    span {
+      margin-right: 10px;
+    }
+  }
+}

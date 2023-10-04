@@ -1,0 +1,13 @@
+<div class="repo-item">
+  <a class="title">{{name}}</a>
+  <!-- Link title to repo page -->
+  <div class="description">{{description}}</div>
+  <div class="tags" *ngIf="tags?.length">
+    <span *ngFor="let tag of tags" class="tag">{{tag}}</span>
+  </div>
+  <div class="bottom">
+    <span class="language">{{language}}</span>
+    <span class="stars">⭐{{stars | number }}</span>
+    <span class="date">Updated: {{lastUpdated | date: 'shortDate'}}</span>
+  </div>
+</div>
