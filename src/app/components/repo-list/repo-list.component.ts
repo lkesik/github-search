@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Repo } from 'src/app/models';
 import { ReposService } from 'src/app/services/repos.service';
 

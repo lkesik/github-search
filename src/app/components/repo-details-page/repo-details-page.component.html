@@ -1,4 +1,4 @@
-<h3> Repository Details</h3>
+<h3>Repository Details</h3>
 <div class="details" *ngIf="repo$ | async as item">
   <a class="title" [href]="item.html_url">{{ item.full_name }}</a>
   <div class="description">{{ item.description }}</div>
@@ -8,7 +8,9 @@
   </div>
   <div class="others">
     <span class="language">{{ item.language }}</span>
-    <span class="lastUpdated">Updated: {{ item.updated_at | date : "shortDate" }}</span>
+    <span class="lastUpdated"
+      >Updated: {{ item.updated_at | date : "shortDate" }}</span
+    >
   </div>
 
   <div class="numbers">
@@ -34,15 +36,20 @@
 </div>
 
 <div class="issues" *ngIf="issues$ | async as issues">
-  <div class="title">Open Issues ({{ issues.length }} shown)</div>
-  <ul>
-    <li *ngFor="let issue of issues">
-      <!-- TODO add trackBy -->
-      <div>
-        <a [href]="issue.html_url">{{ issue.title }}</a>
-      </div>
-      <span>#{{ issue.number }}</span>
-      <span>opened at {{ issue.created_at | date : "short" }}</span>
-    </li>
-  </ul>
+  <ng-container *ngIf="issues.length > 0; else noIssues">
+    <div class="title">Open Issues ({{ issues.length }} shown)</div>
+    <ul>
+      <li *ngFor="let issue of issues">
+        <!-- TODO add trackBy -->
+        <div>
+          <a [href]="issue.html_url">{{ issue.title }}</a>
+        </div>
+        <span>#{{ issue.number }}</span>
+        <span>opened at {{ issue.created_at | date : "short" }}</span>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #noIssues>
+    <div class="title">No Open Issues in repository</div>
+  </ng-template>
 </div>

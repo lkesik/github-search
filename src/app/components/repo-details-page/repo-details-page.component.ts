@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { RepoDetailsService } from 'src/app/services/repo-details.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Issue } from 'src/app/models';
 import { Repo } from 'src/app/models/Repo.model';
+import { RepoDetailsService } from 'src/app/services/repo-details.service';
 
 @Component({
   selector: 'app-repo-details-page',
@@ -10,7 +11,7 @@ import { Repo } from 'src/app/models/Repo.model';
   styleUrls: ['./repo-details-page.component.scss'],
 })
 export class RepoDetailsPageComponent {
-  issues$: Observable<any>; // TODO create model interface for issues
+  issues$: Observable<Issue[]>;
   repo$: Observable<Repo>;
   repoFullName: string;
 
@@ -18,10 +19,9 @@ export class RepoDetailsPageComponent {
     private repoDetailsService: RepoDetailsService,
     private route: ActivatedRoute
   ) {
-    console.log(this.route.snapshot);
     this.repoFullName = `${this.route.snapshot.params['author']}/${this.route.snapshot.params['repo']}`;
 
-    this.issues$ = this.repoDetailsService.fetchRepoIssues(this.repoFullName);
-    this.repo$ = this.repoDetailsService.fetchRepoDetails(this.repoFullName);
+    this.issues$ = this.repoDetailsService.getRepoIssues(this.repoFullName);
+    this.repo$ = this.repoDetailsService.getRepoDetails(this.repoFullName);
   }
 }

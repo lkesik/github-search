@@ -7,12 +7,11 @@ import { Repo } from 'src/app/models/Repo.model';
   styleUrls: ['./repo-item.component.scss'],
 })
 export class RepoItemComponent {
-  @Input() hasLink = true;
-  @Input() name: string = '';
-  @Input() url: string = '';
-  @Input() description: string = '';
-  @Input() tags: string[] = [];
-  @Input() language: string = '';
-  @Input() stars: number = 0;
-  @Input() lastUpdated: string = '';
+  @Input() name?: string;
+  @Input() url?: string;
+  @Input() description?: string;
+  @Input() tags?: string[];
+  @Input() language?: string;
+  @Input() stars?: number;
+  @Input() lastUpdated?: string;
 }

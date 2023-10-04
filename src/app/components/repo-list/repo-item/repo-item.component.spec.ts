@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RepoItemComponent } from './repo-item.component';
+import { NiceNumberPipe } from 'src/app/pipes/nice-number.pipe';
 
 describe('RepoItemComponent', () => {
   let component: RepoItemComponent;
@@ -8,7 +9,7 @@ describe('RepoItemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RepoItemComponent]
+      declarations: [RepoItemComponent, NiceNumberPipe]
     });
     fixture = TestBed.createComponent(RepoItemComponent);
     component = fixture.componentInstance;

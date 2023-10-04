@@ -1,8 +1,7 @@
 <div class="repo-item">
   <div class="header">
-    <a *ngIf="hasLink" class="title" [routerLink]="name">{{ name }}</a>
-    <span *ngIf="!hasLink" class="title">{{ name }}</span>
-    <a class="github" [href]="url">
+    <a *ngIf="!!name" class="title" [routerLink]="name">{{ name }}</a>
+    <a *ngIf="!!url" class="github" [href]="url">
       <svg
         height="16"
         aria-hidden="true"
@@ -17,14 +16,13 @@
       </svg>
     </a>
   </div>
-  <!-- Link title to repo page -->
-  <div class="description">{{ description }}</div>
-  <div class="tags" *ngIf="tags?.length">
+  <div *ngIf="!!description" class="description">{{ description }}</div>
+  <div *ngIf="tags?.length" class="tags" >
     <span *ngFor="let tag of tags" class="tag">{{ tag }}</span>
   </div>
   <div class="bottom">
-    <span class="language">{{ language }}</span>
-    <span class="stars">⭐{{ stars | niceNumber }}</span>
-    <span class="date">Updated: {{ lastUpdated | date : "shortDate" }}</span>
+    <span *ngIf="!!language" class="language">{{ language }}</span>
+    <span *ngIf="!!stars" class="stars">⭐{{ stars | niceNumber }}</span>
+    <span *ngIf="!!lastUpdated" class="date">Updated: {{ lastUpdated | date : "shortDate" }}</span>
   </div>
 </div>

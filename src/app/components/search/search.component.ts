@@ -1,8 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { SearchService } from 'src/app/services/search.service';
-import { filter, Subject, takeUntil } from 'rxjs';
-import { take } from 'cypress/types/lodash';
 
 @Component({
   selector: 'app-search',
@@ -13,12 +12,17 @@ export class SearchComponent implements OnDestroy {
   searchTerm: string = '';
   private destroy$ = new Subject<void>();
 
-  constructor(private searchService: SearchService, private router: Router, private route: ActivatedRoute) {
-    this.route.queryParamMap.pipe(takeUntil(this.destroy$)).subscribe(queryParams => {
-      if(queryParams.has('q')) {
-        this.searchTerm = queryParams.get('q') || '';
-      }
-    });
+  constructor(
+    private searchService: SearchService,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParamMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((queryParams) => {
+        if (queryParams.has('q')) {
+          this.searchTerm = queryParams.get('q') || '';
+        }
+      });
   }
 
   onSubmitSearch(e: Event) {

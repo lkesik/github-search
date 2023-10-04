@@ -5,17 +5,18 @@ import { Issue, Repo } from '../models';
 import { ISSUES_URL_SUFFIX, REPO_DETAILS_URL } from '../util/constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RepoDetailsService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  fetchRepoDetails(repoName: string) : Observable<Repo> {
+  getRepoDetails(repoName: string): Observable<Repo> {
     return this.http.get<Repo>(`${REPO_DETAILS_URL}/${repoName}`);
   }
 
-  fetchRepoIssues(repoName: string) : Observable<Issue[]> {
-    return this.http.get<Issue[]>(`${REPO_DETAILS_URL}/${repoName}${ISSUES_URL_SUFFIX}`);
+  getRepoIssues(repoName: string): Observable<Issue[]> {
+    return this.http.get<Issue[]>(
+      `${REPO_DETAILS_URL}/${repoName}${ISSUES_URL_SUFFIX}`
+    );
   }
 }

@@ -16,12 +16,14 @@ export class ReposService implements OnDestroy {
   // TODO handle paging
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
-    this.route.queryParamMap.pipe(takeUntil(this.destroy$)).subscribe(queryParams => {
-      if(queryParams.has('q')) {
-        const searchTerm = queryParams.get('q') || '';
-        this.loadReposFromSearch(searchTerm);
-      }
-    });
+    this.route.queryParamMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((queryParams) => {
+        if (queryParams.has('q')) {
+          const searchTerm = queryParams.get('q') || '';
+          this.loadReposFromSearch(searchTerm);
+        }
+      });
   }
 
   getItems(): Observable<Repo[]> {
@@ -39,6 +41,7 @@ export class ReposService implements OnDestroy {
 
     this.http
       .get<ReposDto>(`${REPOSITORIES_URL}?q=${searchTerm}`)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((d) => {
         this.results.next(d);
       });
