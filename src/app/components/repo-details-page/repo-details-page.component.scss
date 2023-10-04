@@ -1,0 +1,66 @@
+@import "../../variables";
+
+.details {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid $color-gray;
+  padding: 16px;
+
+  span {
+    margin-right: 10px;
+  }
+
+  .tags {
+    margin-top: 10px;
+    .tag {
+      color: $color-blue;
+      text-decoration: none;
+      font-size: 12px;
+      display: inline-block;
+      padding: 0px 10px;
+      border-radius: 2em;
+      line-height: 22px;
+      background-color: $color-lightblue;
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+  }
+
+  .others, .numbers {
+    margin-top: 10px;
+  }
+}
+
+.issues {
+  .title {
+    border: 1px solid $color-gray;
+    padding: 20px;
+    font-weight: bold;
+    background-color: rgba($color-gray, 0.2);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+    margin-bottom: 10px;
+    border: 1px solid $color-gray;
+    border-top: 0;
+    padding: 10px;
+    margin: 0;
+
+    &:hover {
+      background-color: rgba($color-gray, 0.2);
+    }
+
+    span {
+      margin-right: 4px;
+      font-size: 12px;
+    }
+  }
+}

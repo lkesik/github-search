@@ -5,24 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
-import { RepoListComponent } from './components/repo-list/repo-list.component';
-import { RepoItemComponent } from './components/repo-item/repo-item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RepoDetailsPageComponent } from './components/repo-details-page/repo-details-page.component';
+import { RepoListComponent } from './components/repo-list/repo-list.component';
+import { RepoItemComponent } from './components/repo-list/repo-item/repo-item.component';
+import { NiceNumberPipe } from './pipes/nice-number.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
     RepoListComponent,
-    RepoItemComponent
+    RepoItemComponent,
+    RepoDetailsPageComponent,
+    NiceNumberPipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

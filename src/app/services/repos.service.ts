@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, Subject, map, filter } from 'rxjs';
 import { Repo } from '../models/Repo.model';
 import { ReposDto } from '../models/ReposDto.model';
 import { REPOSITORIES_URL } from '../util/constants';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,11 @@ export class ReposService {
 
   // TODO handle paging
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {
+    // this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe( r=> {
+    //   console.log(r);
+    // })
+  }
 
   getItems(): Observable<Repo[]> {
     return this.results.pipe(map((result) => result.items));
