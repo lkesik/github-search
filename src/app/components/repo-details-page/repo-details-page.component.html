@@ -1,3 +1,4 @@
+<h3> Repository Details</h3>
 <div class="details" *ngIf="repo$ | async as item">
   <a class="title" [href]="item.html_url">{{ item.full_name }}</a>
   <div class="description">{{ item.description }}</div>
@@ -36,6 +37,7 @@
   <div class="title">Open Issues ({{ issues.length }} shown)</div>
   <ul>
     <li *ngFor="let issue of issues">
+      <!-- TODO add trackBy -->
       <div>
         <a [href]="issue.html_url">{{ issue.title }}</a>
       </div>

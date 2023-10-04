@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, Subject, map, filter } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, Subject, map, filter, takeUntil } from 'rxjs';
 import { Repo } from '../models/Repo.model';
 import { ReposDto } from '../models/ReposDto.model';
 import { REPOSITORIES_URL } from '../util/constants';
@@ -9,15 +9,19 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class ReposService {
+export class ReposService implements OnDestroy {
+  private destroy$ = new Subject<void>();
   private results = new Subject<ReposDto>();
 
   // TODO handle paging
 
-  constructor(private http: HttpClient, private router: Router) {
-    // this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe( r=> {
-    //   console.log(r);
-    // })
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
+    this.route.queryParamMap.pipe(takeUntil(this.destroy$)).subscribe(queryParams => {
+      if(queryParams.has('q')) {
+        const searchTerm = queryParams.get('q') || '';
+        this.loadReposFromSearch(searchTerm);
+      }
+    });
   }
 
   getItems(): Observable<Repo[]> {
@@ -28,9 +32,7 @@ export class ReposService {
     return this.results.pipe(map((result) => result.total_count));
   }
 
-  // TODO handle if searchterm already loaded
   loadReposFromSearch(searchTerm: string): void {
-    // TODO export to constants or config file
     if (!searchTerm) {
       return;
     }
@@ -40,5 +42,10 @@ export class ReposService {
       .subscribe((d) => {
         this.results.next(d);
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

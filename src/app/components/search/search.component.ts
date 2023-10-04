@@ -1,18 +1,33 @@
-import { Component } from '@angular/core';
-import { ReposService } from 'src/app/services/repos.service';
+import { Component, OnDestroy } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { SearchService } from 'src/app/services/search.service';
+import { filter, Subject, takeUntil } from 'rxjs';
+import { take } from 'cypress/types/lodash';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent {
+export class SearchComponent implements OnDestroy {
   searchTerm: string = '';
+  private destroy$ = new Subject<void>();
 
-  constructor(private reposService: ReposService) {}
+  constructor(private searchService: SearchService, private router: Router, private route: ActivatedRoute) {
+    this.route.queryParamMap.pipe(takeUntil(this.destroy$)).subscribe(queryParams => {
+      if(queryParams.has('q')) {
+        this.searchTerm = queryParams.get('q') || '';
+      }
+    });
+  }
 
   onSubmitSearch(e: Event) {
     e.preventDefault();
-    this.reposService.loadReposFromSearch(this.searchTerm);
+    this.searchService.search(this.searchTerm);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
