@@ -1,0 +1,17 @@
+<div class="total-count" *ngIf="totalCount$ | async as count">
+  {{ count | niceNumber }} results
+</div>
+<ul>
+  <li *ngFor="let item of items$ | async">
+    <app-repo-item
+      [name]="item.full_name"
+      [url]="item.html_url"
+      [description]="item.description"
+      [language]="item.language"
+      [tags]="item.topics"
+      [stars]="item.stargazers_count"
+      [lastUpdated]="item.updated_at"
+    />
+    <!-- TODO add trackBy -->
+  </li>
+</ul>
